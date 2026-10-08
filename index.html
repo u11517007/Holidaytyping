@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>節慶英打護照 | 收集你的年度記憶</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-default">
+  
+  <!-- 全螢幕背景遮罩 (增加沉浸感) -->
+  <div class="bg-overlay"></div>
+
+  <div class="container">
+    <!-- 頂部：年度護照收集區 (這是讓你想繼續玩的核心！) -->
+    <header class="passport-section">
+      <h2>My Festival Passport 節慶護照</h2>
+      <div class="passport-stamps" id="passportStamps">
+        <!-- JS 會自動生成 12 個月份的印章位置 -->
+      </div>
+    </header>
+
+    <!-- 打字主卡片 (移到下方，變為次要焦點) -->
+    <main class="card hidden" id="typingCard">
+      <div class="card-header">
+        <span class="festival-name" id="festivalName">節慶名稱</span>
+        <button class="close-card" onclick="closeTypingCard()">✕</button>
+      </div>
+
+      <!-- 字母即時比對 -->
+      <div class="word-display" id="wordDisplay"></div>
+      <div class="word-meaning" id="wordMeaning">中文意思</div>
+
+      <input type="text" id="typeInput" placeholder="在此輸入英文單字..." autofocus autocomplete="off">
+
+      <div class="stats">
+        <div>Progress：<strong id="progress">1 / 5</strong></div>
+        <div>Mode：<strong id="stageTag">一般練習</strong></div>
+      </div>
+    </main>
+
+    <!-- 月底 BOSS 戰 (紅色警報) -->
+    <main class="card boss-card hidden" id="bossCard">
+      <div class="boss-title">🔥 月底保衛戰 🔥</div>
+      <div class="word-display" id="bossWordDisplay"></div>
+      <input type="text" id="bossTypeInput" placeholder="快！打字！" autocomplete="off">
+      <div class="timer-bar"><div class="timer-progress" id="timerProgress"></div></div>
+    </main>
+
+    <!-- 通關蓋章彈窗 (更華麗的印章) -->
+    <div class="stamp-modal hidden" id="stampModal">
+      <div class="modal-content">
+        <div class="stamp-wrapper">
+          <div class="stamp-graphic" id="stampGraphic"></div>
+          <div class="stamp-text" id="stampModalText">PASSED</div>
+        </div>
+        <h3 id="modalTitle">本月任務完成！</h3>
+        <p id="modalDesc">你已獲得該節慶護照印章！</p>
+        <button class="next-btn" onclick="nextLevel()">繼續解鎖下一個月</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="words.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

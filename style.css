@@ -1,0 +1,107 @@
+/* 基本設定 */
+:root {
+  --primary: #ffb703;
+  --bg-dark: #121212;
+  --text: #fff;
+  --card-bg: rgba(0, 0, 0, 0.7);
+}
+
+body {
+  font-family: 'Courier New', Courier, monospace; /* 增加護照復古感 */
+  display: flex; justify-content: center; align-items: center;
+  min-height: 100vh; margin: 0;
+  color: var(--text);
+  background-color: var(--bg-dark);
+  background-size: cover; background-position: center;
+  transition: background 0.5s ease;
+}
+
+.bg-overlay {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.9) 100%);
+  z-index: -1;
+}
+
+.container { text-align: center; width: 95%; max-width: 800px; z-index: 1; }
+h2 { font-size: 24px; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px; }
+
+/* 護照收集區 (核心！) */
+.passport-section { margin-bottom: 30px; }
+.passport-stamps {
+  display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
+  padding: 15px; background: rgba(255,255,255,0.05); border-radius: 15px;
+}
+
+.stamp-slot {
+  width: 60px; height: 60px;
+  border: 2px dashed rgba(255,255,255,0.2);
+  border-radius: 50%;
+  display: flex; justify-content: center; align-items: center;
+  font-size: 10px; color: rgba(255,255,255,0.4);
+  cursor: pointer; transition: all 0.3s;
+  position: relative;
+}
+
+.stamp-slot.active { border-color: var(--primary); color: var(--text); }
+.stamp-slot.locked { background-color: rgba(255,255,255,0.02); }
+.stamp-slot:hover:not(.locked) { transform: scale(1.1); background-color: rgba(255,183,3,0.1); }
+
+/* 已收集的印章圖示 */
+.stamp-icon {
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  background-size: cover;
+  position: absolute; top: 0; left: 0;
+  opacity: 0.3; filter: grayscale(100%);
+  transition: all 0.5s;
+}
+
+.stamp-slot.completed .stamp-icon {
+  opacity: 1; filter: grayscale(0%);
+  border: 2px solid var(--primary);
+  box-shadow: 0 0 10px rgba(255,183,3,0.5);
+}
+
+/* 打字卡片 (沉浸式) */
+.card {
+  background: var(--card-bg);
+  padding: 30px; border-radius: 15px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  transition: opacity 0.5s, transform 0.5s;
+}
+
+.hidden { display: none; opacity: 0; transform: translateY(20px); }
+
+.card-header { display: flex; justify-content: space-between; margin-bottom: 15px; }
+.festival-name { color: var(--primary); font-weight: bold; font-size: 18px; }
+.close-card { background: none; border: none; color: #fff; font-size: 18px; cursor: pointer; }
+
+.word-display { font-size: 36px; font-weight: bold; letter-spacing: 3px; margin: 15px 0; }
+.letter { color: #666; transition: color 0.1s; }
+.letter.correct { color: #00f5d4; text-shadow: 0 0 10px #00f5d4; }
+.letter.wrong { color: #ff0055; text-shadow: 0 0 10px #ff0055; animation: shake 0.3s; }
+
+input {
+  width: 80%; padding: 12px; font-size: 18px; text-align: center;
+  border-radius: 8px; border: 2px solid #555; background: rgba(0,0,0,0.3); color: #fff;
+}
+
+/* BOSS 戰特效 */
+.boss-card { border: 2px solid #ff0055; animation: red-pulse 1s infinite; }
+.boss-title { font-size: 20px; color: #ff0055; font-weight: bold; margin-bottom: 10px; }
+.timer-bar { width: 100%; height: 5px; background: #333; margin-top: 15px; border-radius: 5px; overflow: hidden; }
+.timer-progress { width: 100%; height: 100%; background: #ff0055; transition: width 0.1s linear; }
+
+@keyframes red-pulse { 0% { box-shadow: 0 0 10px #ff0055; } 50% { box-shadow: 0 0 25px #ff0055; } 100% { box-shadow: 0 0 10px #ff0055; } }
+@keyframes shake { 0% { transform: translateX(0); } 25% { transform: translateX(5px); } 50% { transform: translateX(-5px); } 75% { transform: translateX(5px); } 100% { transform: translateX(0); } }
+
+/* 通關印章 Modal */
+.stamp-modal {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.9); display: flex; justify-content: center; align-items: center; z-index: 100;
+}
+.modal-content { background: #222; padding: 40px; border-radius: 20px; text-align: center; border: 2px solid var(--primary); }
+.stamp-graphic { width: 100px; height: 100px; border-radius: 50%; background-size: cover; margin: 0 auto 15px; border: 3px solid var(--primary); }
+.stamp-text { font-size: 32px; color: var(--primary); border: 4px solid var(--primary); padding: 5px 20px; transform: rotate(-10deg); display: inline-block; margin-bottom: 15px; }
+.next-btn { background: var(--primary); border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
